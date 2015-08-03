@@ -8,7 +8,7 @@
 	<groupId>org.energy-home</groupId>
 	<artifactId>jemma.osgi.dal.adapter</artifactId>
 	<packaging>bundle</packaging>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 	<name>JEMMA Dal Adapter</name>
 
 	<properties>
@@ -84,6 +84,7 @@
 							 org.energy_home.jemma.osgi.dal.impl,
 							 org.energy_home.jemma.osgi.dal.utils
 						</Export-Package>
+						<Bundle-Category>JEMMA DAL</Bundle-Category>
 					</instructions>
 				</configuration>
 			</plugin>

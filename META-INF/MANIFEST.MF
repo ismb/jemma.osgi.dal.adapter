@@ -1,5 +1,5 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1438079270699
+Bnd-LastModified: 1438598146047
 Build-Jdk: 1.8.0_45
 Built-By: tomasi
 Bundle-ManifestVersion: 2
@@ -21,7 +21,7 @@ Export-Package: org.energy_home.jemma.osgi.dal;uses:="org.energy_home.je
  ion="1.1.1",org.energy_home.jemma.osgi.dal.utils;uses:="org.energy_home
  .dal.functions.type";version="1.1.1"
 Import-Package: org.slf4j;version="[1.6,2)",org.osgi.framework;version="
- [1.5,2)",org.osgi.service.event;version="[1.2,2)",org.osgi.service.dal;
+ [1.8,2)",org.osgi.service.event;version="[1.2,2)",org.osgi.service.dal;
  version="[1.0,2)",org.osgi.service.dal.functions;version="[1.0,2)",org.
  energy_home.dal.functions.type;version="[1.0,2)",org.energy_home.jemma.
  ah.hac;version="[3.0.2,3.1.0)",org.energy_home.jemma.ah.hac.lib.ext;ver
