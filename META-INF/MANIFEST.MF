@@ -1,32 +1,35 @@
 Manifest-Version: 1.0
-Bnd-LastModified: 1438598146047
+Bnd-LastModified: 1438617453909
 Build-Jdk: 1.8.0_45
 Built-By: tomasi
+Bundle-Category: JEMMA DAL
 Bundle-ManifestVersion: 2
 Bundle-Name: JEMMA Dal Adapter
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-SymbolicName: jemma.osgi.dal.adapter;singleton:=true
 Bundle-Vendor: ISMB
-Bundle-Version: 1.1.1
+Bundle-Version: 1.1.2
 Created-By: Apache Maven Bundle Plugin
 Export-Package: org.energy_home.jemma.osgi.dal;uses:="org.energy_home.je
  mma.ah.hac,org.energy_home.jemma.ah.hac.lib.ext,org.osgi.framework,org.
  osgi.service.component,org.osgi.service.dal,org.osgi.service.event";ver
- sion="1.1.1",org.energy_home.jemma.osgi.dal.factories;uses:="org.energy
+ sion="1.1.2",org.energy_home.jemma.osgi.dal.factories;uses:="org.energy
  _home.jemma.ah.hac,org.energy_home.jemma.ah.hac.lib.ext,org.energy_home
- .jemma.osgi.dal,org.osgi.framework";version="1.1.1",org.energy_home.jem
- ma.osgi.dal.impl;uses:="org.energy_home.dal.functions.type,org.energy_h
- ome.jemma.ah.hac,org.energy_home.jemma.ah.hac.lib.ext,org.energy_home.j
- emma.osgi.dal,org.osgi.service.dal,org.osgi.service.dal.functions";vers
- ion="1.1.1",org.energy_home.jemma.osgi.dal.utils;uses:="org.energy_home
- .dal.functions.type";version="1.1.1"
+ .jemma.osgi.dal,org.osgi.framework";version="1.1.2",org.energy_home.jem
+ ma.osgi.dal.impl;uses:="org.energy_home.dal.functions,org.energy_home.d
+ al.functions.type,org.energy_home.jemma.ah.hac,org.energy_home.jemma.ah
+ .hac.lib.ext,org.energy_home.jemma.osgi.dal,org.osgi.service.dal,org.os
+ gi.service.dal.functions,org.osgi.service.dal.functions.data";version="
+ 1.1.2",org.energy_home.jemma.osgi.dal.utils;uses:="org.energy_home.dal.
+ functions.type";version="1.1.2"
 Import-Package: org.slf4j;version="[1.6,2)",org.osgi.framework;version="
- [1.8,2)",org.osgi.service.event;version="[1.2,2)",org.osgi.service.dal;
+ [1.5,2)",org.osgi.service.event;version="[1.2,2)",org.osgi.service.dal;
  version="[1.0,2)",org.osgi.service.dal.functions;version="[1.0,2)",org.
- energy_home.dal.functions.type;version="[1.0,2)",org.energy_home.jemma.
- ah.hac;version="[3.0.2,3.1.0)",org.energy_home.jemma.ah.hac.lib.ext;ver
- sion="[3.4.0,3.5.0)",org.osgi.service.component;version="1.1.0",org.osg
- i.service.dal.functions.dataorg.energy_home.dal.functions
+ osgi.service.dal.functions.data;version="[1.0,2)",org.energy_home.dal.f
+ unctions;version="[1.0,2)",org.energy_home.dal.functions.type;version="
+ [1.0,2)",org.energy_home.jemma.ah.hac;version="[3.0.2,3.1.0)",org.energ
+ y_home.jemma.ah.hac.lib.ext;version="[3.4.0,3.5.0)",org.osgi.service.co
+ mponent;version="1.1.0"
 Require-Bundle: jemma.osgi.ah.hac.lib;bundle-version="[3.1.0,3.2.0)"
 Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.5))"
 Tool: Bnd-2.3.0.201405100607
