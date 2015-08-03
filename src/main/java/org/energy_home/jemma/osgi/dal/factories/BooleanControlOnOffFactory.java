@@ -20,44 +20,37 @@ import org.osgi.service.dal.functions.data.BooleanData;
 
 public class BooleanControlOnOffFactory implements ClusterFunctionFactory {
 
-	Map<String,String> propertiesMapping;
-	
-	public BooleanControlOnOffFactory()
-	{
-		propertiesMapping=new HashMap<String, String>();
-		propertiesMapping.put("OnOff",BooleanControl.PROPERTY_DATA);
-	}
-	
-	
-	public ServiceRegistration createFunctionService(IAppliance appliance, Integer endPointId, IAppliancesProxy appliancesProxy) {
-		Dictionary d=new Hashtable();
-		
-		d.put(Function.SERVICE_DEVICE_UID, IDConverters.getDeviceUid(appliance.getPid(), appliance.getConfiguration()));
-		d.put(Function.SERVICE_UID, getFunctionUID(appliance));
-		
-		d.put(Function.SERVICE_OPERATION_NAMES, new String[]{
-				BooleanControl.OPERATION_REVERSE,
-				BooleanControl.OPERATION_SET_TRUE,
-				BooleanControl.OPERATION_SET_FALSE});
-		d.put(Function.SERVICE_PROPERTY_NAMES, new String[]{BooleanControl.PROPERTY_DATA});
-		return FrameworkUtil.getBundle(this.getClass()).getBundleContext().registerService(
-				new String[]{Function.class.getName(),BooleanControl.class.getName()}, 
-				new BooleanControlDALAdapter(appliance.getPid(), endPointId, appliancesProxy), 
-				d);		
+	Map<String, String> propertiesMapping;
+
+	public BooleanControlOnOffFactory() {
+		propertiesMapping = new HashMap<String, String>();
+		propertiesMapping.put("OnOff", BooleanControl.PROPERTY_DATA);
 	}
 
-	
+	public ServiceRegistration createFunctionService(IAppliance appliance, Integer endPointId, IAppliancesProxy appliancesProxy) {
+		Dictionary d = new Hashtable();
+
+		d.put(Function.SERVICE_DEVICE_UID, IDConverters.getDeviceUid(appliance.getPid(), appliance.getConfiguration()));
+		d.put(Function.SERVICE_UID, getFunctionUID(appliance));
+
+		d.put(Function.SERVICE_OPERATION_NAMES, new String[] { BooleanControl.OPERATION_REVERSE, BooleanControl.OPERATION_SET_TRUE, BooleanControl.OPERATION_SET_FALSE });
+		d.put(Function.SERVICE_PROPERTY_NAMES, new String[] { BooleanControl.PROPERTY_DATA });
+		return FrameworkUtil
+				.getBundle(this.getClass())
+				.getBundleContext()
+				.registerService(new String[] { Function.class.getName(), BooleanControl.class.getName() },
+						new BooleanControlDALAdapter(appliance.getPid(), endPointId, appliancesProxy), d);
+	}
+
 	public String getMatchingCluster() {
 		return "org.energy_home.jemma.ah.cluster.zigbee.general.OnOffServer";
 	}
 
-	
 	public String getFunctionUID(IAppliance appliance) {
-		return IDConverters.getFunctionUid(appliance.getPid(), appliance.getConfiguration(),"OnOff");
+		return IDConverters.getFunctionUid(appliance.getPid(), appliance.getConfiguration(), "OnOff");
 	}
 
-	
-	public String getMatchingPropertyName(String attributeName,IAppliance appliance) {
+	public String getMatchingPropertyName(String attributeName, IAppliance appliance) {
 		return propertiesMapping.get(attributeName);
 	}
 

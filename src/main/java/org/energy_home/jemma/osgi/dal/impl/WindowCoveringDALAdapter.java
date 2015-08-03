@@ -19,76 +19,62 @@ import org.osgi.service.dal.functions.data.BooleanData;
  * DAL function implementation for ZigBee OnOffServer
  * 
  * @author Ivan Grimaldi (grimaldi@ismb.it)
- *
+ * 
  */
 public class WindowCoveringDALAdapter extends BaseDALAdapter implements WindowCovering {
 
 	private static String WINDOWCOVERINGFACTORY = "org.energy_home.jemma.ah.cluster.zigbee.closures.WindowCoveringServer";
 
-	public WindowCoveringDALAdapter(String appliancePid,Integer endPointId,IAppliancesProxy appliancesProxy)
-	{
-		super(appliancePid,endPointId,appliancesProxy);
+	public WindowCoveringDALAdapter(String appliancePid, Integer endPointId, IAppliancesProxy appliancesProxy) {
+		super(appliancePid, endPointId, appliancesProxy);
 	}
 
-	
 	public PropertyMetadata getPropertyMetadata(String propertyName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public OperationMetadata getOperationMetadata(String operationName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public Object getServiceProperty(String propName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
-	
 	public FunctionData getMatchingPropertyValue(String attributeName, IAttributeValue value) {
-		return new WindowCoveringData(System.currentTimeMillis(), null, (Short)value.getValue());
-	}
-	
-	private WindowCoveringServer getCluster()
-	{
-		return (WindowCoveringServer)this.appliancesProxy.getAppliance(appliancePid).getEndPoint(endPointId).getServiceCluster(WINDOWCOVERINGFACTORY);
+		return new WindowCoveringData(System.currentTimeMillis(), null, (Short) value.getValue());
 	}
 
+	private WindowCoveringServer getCluster() {
+		return (WindowCoveringServer) this.appliancesProxy.getAppliance(appliancePid).getEndPoint(endPointId).getServiceCluster(WINDOWCOVERINGFACTORY);
+	}
 
-	
 	public void openUp() throws DeviceException {
-		try{
+		try {
 			getCluster().execUpOpen(appliancesProxy.getRequestContext(true));
-		}catch(Exception e)
-		{
-			throw new DeviceException(e.getMessage(),e);
+		} catch (Exception e) {
+			throw new DeviceException(e.getMessage(), e);
 		}
 	}
 
-	
 	public void closeDown() throws DeviceException {
-		try{
+		try {
 			getCluster().execDownClose(appliancesProxy.getRequestContext(true));
-		}catch(Exception e)
-		{
-			throw new DeviceException(e.getMessage(),e);
+		} catch (Exception e) {
+			throw new DeviceException(e.getMessage(), e);
 		}
-		
+
 	}
 
-	
 	public WindowCoveringData getStatus() throws DeviceException {
-		try{
+		try {
 			Short data = getCluster().getCurrentPositionLiftPercentage(appliancesProxy.getRequestContext(true));
-			return new WindowCoveringData(System.currentTimeMillis(), null,data);
-		}catch(Exception e)
-		{
-			throw new DeviceException(e.getMessage(),e);
+			return new WindowCoveringData(System.currentTimeMillis(), null, data);
+		} catch (Exception e) {
+			throw new DeviceException(e.getMessage(), e);
 		}
 	}
 

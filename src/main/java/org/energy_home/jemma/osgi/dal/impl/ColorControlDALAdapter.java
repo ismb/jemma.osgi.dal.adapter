@@ -22,53 +22,45 @@ public class ColorControlDALAdapter extends BaseDALAdapter implements ColorContr
 		super(appliancePid, endPointId, appliancesProxy);
 	}
 
-	
 	public PropertyMetadata getPropertyMetadata(String propertyName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public OperationMetadata getOperationMetadata(String operationName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public Object getServiceProperty(String propName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public void setHS(Short hue,Short saturation) throws DeviceException
-	{
+	public void setHS(Short hue, Short saturation) throws DeviceException {
 		try {
 			getCluster().execMoveToHueAndSaturation(hue, saturation, 10, appliancesProxy.getRequestContext(true));
-			//getCluster().execStepColor((int)(xy[0]*254), (int)(xy[1]*254), 10, appliancesProxy.getRequestContext(true));
+			// getCluster().execStepColor((int)(xy[0]*254), (int)(xy[1]*254),
+			// 10, appliancesProxy.getRequestContext(true));
 		} catch (Exception e) {
-			throw new DeviceException(e.getMessage(),e.getCause());
+			throw new DeviceException(e.getMessage(), e.getCause());
 		}
 	}
-	
-	public Short[] getHS() throws DeviceException
-	{
-		try
-		{
-			Short hue=getCluster().getCurrentHue(appliancesProxy.getRequestContext(true));
-			Short sat=getCluster().getCurrentSaturation(appliancesProxy.getRequestContext(true));
-			return new Short[]{hue,sat};
-		}catch(Exception e)
-		{
-			throw new DeviceException(e.getMessage(),e.getCause());
+
+	public Short[] getHS() throws DeviceException {
+		try {
+			Short hue = getCluster().getCurrentHue(appliancesProxy.getRequestContext(true));
+			Short sat = getCluster().getCurrentSaturation(appliancesProxy.getRequestContext(true));
+			return new Short[] { hue, sat };
+		} catch (Exception e) {
+			throw new DeviceException(e.getMessage(), e.getCause());
 		}
 	}
-	
-	private ColorControlServer getCluster()
-	{
+
+	private ColorControlServer getCluster() {
 		return (ColorControlServer) appliancesProxy.getAppliance(appliancePid).getEndPoint(endPointId).getServiceCluster(COLORCONTROLCLUSTER);
 	}
 
-	
 	public FunctionData getMatchingPropertyValue(String attributeName, IAttributeValue attributeValue) {
 		// TODO Auto-generated method stub
 		return null;

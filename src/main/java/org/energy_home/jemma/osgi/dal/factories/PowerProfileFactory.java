@@ -22,35 +22,27 @@ import org.osgi.service.dal.functions.data.BooleanData;
 
 public class PowerProfileFactory implements ClusterFunctionFactory {
 
-	Map<String,String> propertiesMapping;
-	
-	public PowerProfileFactory()
-	{
-		propertiesMapping=new HashMap<String, String>();
+	Map<String, String> propertiesMapping;
+
+	public PowerProfileFactory() {
+		propertiesMapping = new HashMap<String, String>();
 	}
-	
+
 	public ServiceRegistration createFunctionService(IAppliance appliance, Integer endPointId, IAppliancesProxy appliancesProxy) {
-		Dictionary d=new Hashtable();
-		
+		Dictionary d = new Hashtable();
+
 		d.put(Function.SERVICE_DEVICE_UID, IDConverters.getDeviceUid(appliance.getPid(), appliance.getConfiguration()));
 		d.put(Function.SERVICE_UID, getFunctionUID(appliance));
-		
-		d.put(Function.SERVICE_OPERATION_NAMES, 
-				new String[]{
-				PowerProfileFunction.OPERATION_SCHEDULEENRGYPHASES});
-		d.put(Function.SERVICE_PROPERTY_NAMES, new String[]{
-				PowerProfileFunction.PROPERTY_ENERGYREMOTE,
-				PowerProfileFunction.PROPERTY_MULTIPLESCHEDULING,
-				PowerProfileFunction.PROPERTY_SCHEDULEMODE,
-				PowerProfileFunction.PROPERTY_TOTALPROFILENUM,
-				PowerProfileFunction.PROPERTY_CONSTRAINTS,
-				PowerProfileFunction.PROPERTY_STATE,
-				PowerProfileFunction.PROPERTY_POWEPROFILEPHASES
-				});
-		return FrameworkUtil.getBundle(this.getClass()).getBundleContext().registerService(
-				new String[]{Function.class.getName(),PowerProfileFunction.class.getName()}, 
-				new PowerProfileDALAdapter(appliance.getPid(), endPointId, appliancesProxy), 
-				d);		
+
+		d.put(Function.SERVICE_OPERATION_NAMES, new String[] { PowerProfileFunction.OPERATION_SCHEDULEENRGYPHASES });
+		d.put(Function.SERVICE_PROPERTY_NAMES, new String[] { PowerProfileFunction.PROPERTY_ENERGYREMOTE, PowerProfileFunction.PROPERTY_MULTIPLESCHEDULING,
+				PowerProfileFunction.PROPERTY_SCHEDULEMODE, PowerProfileFunction.PROPERTY_TOTALPROFILENUM, PowerProfileFunction.PROPERTY_CONSTRAINTS,
+				PowerProfileFunction.PROPERTY_STATE, PowerProfileFunction.PROPERTY_POWEPROFILEPHASES });
+		return FrameworkUtil
+				.getBundle(this.getClass())
+				.getBundleContext()
+				.registerService(new String[] { Function.class.getName(), PowerProfileFunction.class.getName() },
+						new PowerProfileDALAdapter(appliance.getPid(), endPointId, appliancesProxy), d);
 	}
 
 	public String getMatchingCluster() {
@@ -58,10 +50,10 @@ public class PowerProfileFactory implements ClusterFunctionFactory {
 	}
 
 	public String getFunctionUID(IAppliance appliance) {
-		return IDConverters.getFunctionUid(appliance.getPid(), appliance.getConfiguration(),"PowerProfile");
+		return IDConverters.getFunctionUid(appliance.getPid(), appliance.getConfiguration(), "PowerProfile");
 	}
 
-	public String getMatchingPropertyName(String attributeName,IAppliance appliance) {
+	public String getMatchingPropertyName(String attributeName, IAppliance appliance) {
 		return propertiesMapping.get(attributeName);
 	}
 

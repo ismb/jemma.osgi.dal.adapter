@@ -22,28 +22,23 @@ import org.osgi.service.dal.functions.data.BooleanData;
 
 public class DoorLockFactory implements ClusterFunctionFactory {
 
-	Map<String,String> propertiesMapping;
-	
-	public DoorLockFactory()
-	{
-		propertiesMapping=new HashMap<String, String>();
-		propertiesMapping.put("LockState",BooleanControl.PROPERTY_DATA);
+	Map<String, String> propertiesMapping;
+
+	public DoorLockFactory() {
+		propertiesMapping = new HashMap<String, String>();
+		propertiesMapping.put("LockState", BooleanControl.PROPERTY_DATA);
 	}
-	
+
 	public ServiceRegistration createFunctionService(IAppliance appliance, Integer endPointId, IAppliancesProxy appliancesProxy) {
-		Dictionary d=new Hashtable();
-		
+		Dictionary d = new Hashtable();
+
 		d.put(Function.SERVICE_DEVICE_UID, IDConverters.getDeviceUid(appliance.getPid(), appliance.getConfiguration()));
 		d.put(Function.SERVICE_UID, getFunctionUID(appliance));
-		
-		d.put(Function.SERVICE_OPERATION_NAMES, new String[]{
-				DoorLock.OPERATION_OPEN,
-				DoorLock.OPERATION_CLOSE});
-		d.put(Function.SERVICE_PROPERTY_NAMES, new String[]{DoorLock.PROPERTY_STATUS});
-		return FrameworkUtil.getBundle(this.getClass()).getBundleContext().registerService(
-				new String[]{Function.class.getName(),DoorLock.class.getName()}, 
-				new DoorLockDALAdapter(appliance.getPid(), endPointId, appliancesProxy), 
-				d);		
+
+		d.put(Function.SERVICE_OPERATION_NAMES, new String[] { DoorLock.OPERATION_OPEN, DoorLock.OPERATION_CLOSE });
+		d.put(Function.SERVICE_PROPERTY_NAMES, new String[] { DoorLock.PROPERTY_STATUS });
+		return FrameworkUtil.getBundle(this.getClass()).getBundleContext()
+				.registerService(new String[] { Function.class.getName(), DoorLock.class.getName() }, new DoorLockDALAdapter(appliance.getPid(), endPointId, appliancesProxy), d);
 	}
 
 	public String getMatchingCluster() {
@@ -51,10 +46,10 @@ public class DoorLockFactory implements ClusterFunctionFactory {
 	}
 
 	public String getFunctionUID(IAppliance appliance) {
-		return IDConverters.getFunctionUid(appliance.getPid(), appliance.getConfiguration(),"DoorLock");
+		return IDConverters.getFunctionUid(appliance.getPid(), appliance.getConfiguration(), "DoorLock");
 	}
 
-	public String getMatchingPropertyName(String attributeName,IAppliance appliance) {
+	public String getMatchingPropertyName(String attributeName, IAppliance appliance) {
 		return propertiesMapping.get(attributeName);
 	}
 

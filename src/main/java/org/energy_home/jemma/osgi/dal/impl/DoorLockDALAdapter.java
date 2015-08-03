@@ -16,84 +16,70 @@ import org.osgi.service.dal.functions.data.BooleanData;
  * DAL function implementation for ZigBee OnOffServer
  * 
  * @author Ivan Grimaldi (grimaldi@ismb.it)
- *
+ * 
  */
 public class DoorLockDALAdapter extends BaseDALAdapter implements DoorLock {
 
 	private static String DOORLOCKSERVER = "org.energy_home.jemma.ah.cluster.zigbee.closures.DoorLockServer";
 
-	public DoorLockDALAdapter(String appliancePid,Integer endPointId,IAppliancesProxy appliancesProxy)
-	{
-		super(appliancePid,endPointId,appliancesProxy);
+	public DoorLockDALAdapter(String appliancePid, Integer endPointId, IAppliancesProxy appliancesProxy) {
+		super(appliancePid, endPointId, appliancesProxy);
 	}
 
-	
 	public PropertyMetadata getPropertyMetadata(String propertyName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public OperationMetadata getOperationMetadata(String operationName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public Object getServiceProperty(String propName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
-	
 	public FunctionData getMatchingPropertyValue(String attributeName, IAttributeValue value) {
-		Short state=(Short)value.getValue();
-		return new DoorLockData(System.currentTimeMillis(), null, state.equals(Short.valueOf((short) 1))?DoorLockData.STATUS_CLOSED:DoorLockData.STATUS_OPEN);
+		Short state = (Short) value.getValue();
+		return new DoorLockData(System.currentTimeMillis(), null, state.equals(Short.valueOf((short) 1)) ? DoorLockData.STATUS_CLOSED : DoorLockData.STATUS_OPEN);
 	}
 
-	
-	
-	private DoorLockServer getCluster()
-	{
-		return (DoorLockServer)this.appliancesProxy.getAppliance(appliancePid).getEndPoint(endPointId).getServiceCluster(DOORLOCKSERVER);
+	private DoorLockServer getCluster() {
+		return (DoorLockServer) this.appliancesProxy.getAppliance(appliancePid).getEndPoint(endPointId).getServiceCluster(DOORLOCKSERVER);
 	}
 
-	
 	public void open() throws DeviceException {
 		try {
-			getCluster().execUnlockDoor("0",appliancesProxy.getRequestContext(true));
+			getCluster().execUnlockDoor("0", appliancesProxy.getRequestContext(true));
 		} catch (Exception e) {
 			throw new DeviceException(e.getMessage(), e.getCause());
 		}
 
-		
 	}
 
-	
 	public void close() throws DeviceException {
 		try {
-			getCluster().execLockDoor("1",appliancesProxy.getRequestContext(true));
+			getCluster().execLockDoor("1", appliancesProxy.getRequestContext(true));
 		} catch (Exception e) {
 			throw new DeviceException(e.getMessage(), e.getCause());
 		}
 
-		
 	}
 
-	
 	public DoorLockData getStatus() throws DeviceException {
 		Short data = null;
-		
+
 		try {
-			data=getCluster().getLockState(appliancesProxy.getRequestContext(true));
-			
+			data = getCluster().getLockState(appliancesProxy.getRequestContext(true));
+
 		} catch (Exception e) {
 			throw new DeviceException(e.getMessage(), e.getCause());
 		}
 
-		return new DoorLockData(System.currentTimeMillis(), null, data==1?DoorLockData.STATUS_CLOSED:DoorLockData.STATUS_OPEN);
-		
+		return new DoorLockData(System.currentTimeMillis(), null, data == 1 ? DoorLockData.STATUS_CLOSED : DoorLockData.STATUS_OPEN);
+
 	}
 
 }

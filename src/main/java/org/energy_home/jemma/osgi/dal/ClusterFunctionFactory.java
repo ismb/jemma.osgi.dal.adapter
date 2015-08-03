@@ -8,13 +8,13 @@ import org.osgi.service.dal.FunctionData;
 
 public interface ClusterFunctionFactory {
 
-	//this creates function instance and registers service
-	public ServiceRegistration createFunctionService(IAppliance appliance,Integer endPointId,IAppliancesProxy appliancesProxy);
-	
+	// this creates function instance and registers service
+	public ServiceRegistration createFunctionService(IAppliance appliance, Integer endPointId, IAppliancesProxy appliancesProxy);
+
 	public String getFunctionUID(IAppliance appliance);
-	
-	public String getMatchingPropertyName(String attributeName,IAppliance appliance);
-	
+
+	public String getMatchingPropertyName(String attributeName, IAppliance appliance);
+
 	public String getMatchingCluster();
 
 }

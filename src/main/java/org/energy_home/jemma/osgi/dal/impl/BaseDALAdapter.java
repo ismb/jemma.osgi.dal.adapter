@@ -5,26 +5,26 @@ import org.energy_home.jemma.ah.hac.lib.ext.TextConverter;
 import org.energy_home.jemma.osgi.dal.ClusterDALAdapter;
 import org.osgi.service.dal.FunctionData;
 
-public abstract class BaseDALAdapter implements ClusterDALAdapter{
+public abstract class BaseDALAdapter implements ClusterDALAdapter {
 
 	protected IAppliancesProxy appliancesProxy;
 	protected Integer endPointId;
 	protected String appliancePid;
-	
-	
+
 	public BaseDALAdapter(String appliancePid, Integer endPointId, IAppliancesProxy appliancesProxy) {
-		this.appliancePid=appliancePid;
-		this.endPointId=endPointId;
-		this.appliancesProxy=appliancesProxy;
+		this.appliancePid = appliancePid;
+		this.endPointId = endPointId;
+		this.appliancesProxy = appliancesProxy;
 	}
 
-	protected Object[] createParams(String clusterName,String methodName,String[] args)
-	{
-		Object[] objectParams=null;
+	protected Object[] createParams(String clusterName, String methodName, String[] args) {
+		Object[] objectParams = null;
 		try {
-			objectParams = TextConverter.getObjectParameters(Class.forName( clusterName)
-					, methodName,
-					args,//empty argument array, for testing
+			objectParams = TextConverter.getObjectParameters(Class.forName(clusterName), methodName, args,// empty
+																											// argument
+																											// array,
+																											// for
+																											// testing
 					appliancesProxy.getRequestContext(true));
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -44,9 +44,9 @@ public abstract class BaseDALAdapter implements ClusterDALAdapter{
 		}
 		return objectParams;
 	}
-	
-	//a empty implementation returning null for dal adapters not requiring 
-	public FunctionData getDataFromClusterNotification(String notificationPropertyName,Object value){
+
+	// a empty implementation returning null for dal adapters not requiring
+	public FunctionData getDataFromClusterNotification(String notificationPropertyName, Object value) {
 		return null;
-	} 
+	}
 }

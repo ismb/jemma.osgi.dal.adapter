@@ -17,15 +17,14 @@ import org.osgi.service.dal.functions.data.BooleanData;
  * DAL function implementation for ZigBee OnOffServer
  * 
  * @author Ivan Grimaldi (grimaldi@ismb.it)
- *
+ * 
  */
 public class BooleanControlDALAdapter extends BaseDALAdapter implements BooleanControl {
 
 	private static String ONOFFCLUSTER = "org.energy_home.jemma.ah.cluster.zigbee.general.OnOffServer";
 
-	public BooleanControlDALAdapter(String appliancePid,Integer endPointId,IAppliancesProxy appliancesProxy)
-	{
-		super(appliancePid,endPointId,appliancesProxy);
+	public BooleanControlDALAdapter(String appliancePid, Integer endPointId, IAppliancesProxy appliancesProxy) {
+		super(appliancePid, endPointId, appliancesProxy);
 	}
 
 	public PropertyMetadata getPropertyMetadata(String propertyName) throws IllegalArgumentException {
@@ -33,24 +32,20 @@ public class BooleanControlDALAdapter extends BaseDALAdapter implements BooleanC
 		return null;
 	}
 
-	
 	public OperationMetadata getOperationMetadata(String operationName) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public Object getServiceProperty(String propName) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	
 	public BooleanData getData() throws DeviceException {
 		Boolean data = null;
 		try {
-			data = (Boolean) this.appliancesProxy.invokeClusterMethod(appliancePid, endPointId, ONOFFCLUSTER,
-					"getOnOff", createParams(ONOFFCLUSTER, "getOnOff", new String[0]));
+			data = (Boolean) this.appliancesProxy.invokeClusterMethod(appliancePid, endPointId, ONOFFCLUSTER, "getOnOff", createParams(ONOFFCLUSTER, "getOnOff", new String[0]));
 		} catch (Exception e) {
 			throw new DeviceException(e.getMessage(), e.getCause());
 		}
@@ -58,51 +53,41 @@ public class BooleanControlDALAdapter extends BaseDALAdapter implements BooleanC
 		return new BooleanData(System.currentTimeMillis(), null, data);
 	}
 
-	
-	public void setData(boolean data) throws UnsupportedOperationException, IllegalStateException, DeviceException,
-			IllegalArgumentException {
+	public void setData(boolean data) throws UnsupportedOperationException, IllegalStateException, DeviceException, IllegalArgumentException {
 		throw new UnsupportedOperationException("Unimplemented method");
 	}
 
-	
 	public void reverse() throws UnsupportedOperationException, IllegalStateException, DeviceException {
 		try {
-			this.appliancesProxy.invokeClusterMethod(appliancePid, endPointId, ONOFFCLUSTER, "execToggle",
-					createParams(ONOFFCLUSTER, "execToggle", new String[0]));
+			this.appliancesProxy.invokeClusterMethod(appliancePid, endPointId, ONOFFCLUSTER, "execToggle", createParams(ONOFFCLUSTER, "execToggle", new String[0]));
 		} catch (Exception e) {
 			throw new DeviceException(e.getMessage(), e.getCause());
 		}
 
 	}
 
-	
 	public void setTrue() throws UnsupportedOperationException, IllegalStateException, DeviceException {
 		try {
-			this.appliancesProxy.invokeClusterMethod(appliancePid, endPointId, ONOFFCLUSTER, "execOn",
-					createParams(ONOFFCLUSTER, "execOn", new String[0]));
+			this.appliancesProxy.invokeClusterMethod(appliancePid, endPointId, ONOFFCLUSTER, "execOn", createParams(ONOFFCLUSTER, "execOn", new String[0]));
 		} catch (Exception e) {
 			throw new DeviceException(e.getMessage(), e.getCause());
 		}
 
 	}
 
-	
 	public void setFalse() throws UnsupportedOperationException, IllegalStateException, DeviceException {
 		try {
-			this.appliancesProxy.invokeClusterMethod(appliancePid, endPointId, ONOFFCLUSTER, "execOff",
-					createParams(ONOFFCLUSTER, "execOff", new String[0]));
+			this.appliancesProxy.invokeClusterMethod(appliancePid, endPointId, ONOFFCLUSTER, "execOff", createParams(ONOFFCLUSTER, "execOff", new String[0]));
 		} catch (Exception e) {
 			throw new DeviceException(e.getMessage(), e.getCause());
 		}
 
 	}
 
-	
 	public FunctionData getMatchingPropertyValue(String attributeName, IAttributeValue value) {
-		boolean v=(Boolean) value.getValue();
-		BooleanData data=new BooleanData(value.getTimestamp(), null, v);
+		boolean v = (Boolean) value.getValue();
+		BooleanData data = new BooleanData(value.getTimestamp(), null, v);
 		return data;
 	}
-
 
 }
