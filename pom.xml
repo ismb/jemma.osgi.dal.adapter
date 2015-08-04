@@ -85,6 +85,7 @@
 							 org.energy_home.jemma.osgi.dal.utils
 						</Export-Package>
 						<Bundle-Category>JEMMA DAL</Bundle-Category>
+						<Service-Component>OSGI-INF/*.xml</Service-Component>
 					</instructions>
 				</configuration>
 			</plugin>
